@@ -1,0 +1,251 @@
+{
+  "schemaVersion": "1.0",
+  "id": "starting-lineup-form",
+  "title": "Starting Lineup",
+  "description": "Create an HTML form that allows a user to select a team's starting lineup for a game.",
+  "course": "COSC 4398",
+  "sourcePlatform": "zyBooks",
+  "assignmentType": "html-form",
+  "evaluatorType": "browser_qunit_html",
+  "language": "html",
+  "technologies": [
+    "HTML5",
+    "Forms",
+    "DOM",
+    "QUnit"
+  ],
+  "instructions": {
+  "studentPrompt": "Add a form to index.html that allows the user to select a team's starting lineup for a game.\n\nThe form should:\n\n- Use the POST method.\n- Submit to https://wp.zybooks.com/form-viewer.php.\n- Use a <p> to surround related labels, form widgets, and fieldsets.\n- Use a <fieldset> containing a <legend> with the exact text \"Status:\" including the colon.\n- Place radio buttons in the first fieldset for choosing Draft or Final.\n- The radio buttons' name attribute should be \"status\".\n- The radio button values should be \"Draft\" and \"Final\".\n- Make the Final radio button checked by default.\n- Use a <label> after each radio button so clicking the label text selects the radio button.\n- Use a drop-down with these dates, in this order:\n  - March 20\n  - March 24\n  - April 2\n  - April 6\n  - April 13\n- The <select> name attribute should be \"gameDate\".\n- Each <option> should use a value identical to the displayed date.\n- Use a second <fieldset> containing a <legend> with the exact text \"Players:\" including the colon.\n- Place checkboxes in the second fieldset for these players, in this order:\n  - Aarav Agarwal\n  - Ava Johnson\n  - Julio Ortiz\n  - Liam Rubio\n  - Emma Witherspoon\n- Use the name attribute \"player\" for all player checkboxes.\n- Each checkbox value should be identical to the player's name.\n- Use a <label> after each checkbox so clicking the label selects the checkbox.\n- Use a submit <button> labeled \"Submit\"."
+},
+  "files": [
+    {
+      "path": "index.html",
+      "role": "editable",
+      "language": "html",
+      "includeInPrompt": true,
+      "requiredInSubmission": true,
+      "preserve": false,
+      "content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n   <title>Starting Lineup</title>\n   <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n   <h1>Starting Lineup</h1>\n   \n   <!-- TODO: Add your form here -->\n   \n</body>\n</html>\n"
+    },
+    {
+      "path": "styles.css",
+      "role": "read_only",
+      "language": "css",
+      "content": null,
+      "includeInPrompt": false,
+      "requiredInSubmission": false,
+      "preserve": true,
+      "notes": "styles.css is referenced by index.html but was not provided and is not required by the official tests."
+    }
+  ],
+
+  "referenceSolution": {
+    "source": "zyBooks",
+    "files": [
+      {
+        "path": "index.html",
+        "language": "html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n   <title>Starting Lineup</title>\n   <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n   <h1>Starting Lineup</h1>\n   <form method=\"POST\" action=\"https://wp.zybooks.com/form-viewer.php\">\n      <p>\n         <fieldset>\n            <legend>Status:</legend>\n            <input type=\"radio\" name=\"status\" value=\"Draft\" id=\"draft\">\n            <label for=\"draft\">Draft</label>\n            <input type=\"radio\" name=\"status\" value=\"Final\" id=\"final\" checked>\n            <label for=\"final\">Final</label>\n         </fieldset>\n      </p>\n      <p>\n         <label for=\"gameDate\">Date:</label>\n         <select name=\"gameDate\" id=\"gameDate\">\n            <option value=\"March 20\">March 20</option>\n            <option value=\"March 24\">March 24</option>\n            <option value=\"April 2\">April 2</option>\n            <option value=\"April 6\">April 6</option>\n            <option value=\"April 13\">April 13</option>\n         </select>\n      </p>      \n      <p>\n         <fieldset>\n            <legend>Players:</legend>\n            <div>\n               <input type=\"checkbox\" name=\"player\" value=\"Aarav Agarwal\" id=\"player1\">\n               <label for=\"player1\">Aarav Agarwal</label>\n            </div>\n            <div>\n               <input type=\"checkbox\" name=\"player\" value=\"Ava Johnson\" id=\"player2\">\n               <label for=\"player2\">Ava Johnson</label>\n            </div>\n            <div>\n               <input type=\"checkbox\" name=\"player\" value=\"Julio Ortiz\" id=\"player3\"> \n               <label for=\"player3\">Julio Ortiz</label>\n            </div>\n            <div>\n               <input type=\"checkbox\" name=\"player\" value=\"Liam Rubio\" id=\"player4\">\n               <label for=\"player4\">Liam Rubio</label>\n            </div>\n            <div>\n               <input type=\"checkbox\" name=\"player\" value=\"Emma Witherspoon\" id=\"player5\">\n               <label for=\"player5\">Emma Witherspoon</label>\n            </div>\n         </fieldset>\n      </p>     \n      <button>Submit</button>\n   </form>\n   \n</body>\n</html>\n"
+      }
+    ]
+  },
+
+  "submissionRules": {
+    "mode": "full_editable_file",
+    "editablePaths": [
+      "index.html"
+    ],
+    "allowExtraFiles": false,
+    "allowMissingFiles": false,
+    "strictOutput": true,
+    "validation": [
+      "Require the complete index.html file.",
+      "Reject markdown code fences.",
+      "Reject explanatory text outside the HTML.",
+      "Reject missing required files.",
+      "Reject extra files.",
+      "Require exact filenames.",
+      "Prevent modification of styles.css.",
+      "Perform an HTML syntax check where practical."
+    ],
+    "notes": "Do not automatically clean or repair malformed model output. Invalid formatting should later result in FORMAT_ERROR."
+  },
+  "runtime": {
+    "environment": "browser",
+    "entryFile": "index.html",
+    "browserEngine": "Chromium",
+    "headless": true,
+    "network": "disabled",
+    "processIsolation": "fresh_environment",
+    "testIsolation": "fresh_page",
+    "waitFor": "load",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "setupTimeoutMs": 10000,
+    "individualTestTimeoutMs": 5000,
+    "totalTimeoutMs": 30000
+  },
+  "promptPolicy": {
+    "showInstructions": true,
+    "showEditableFiles": true,
+    "showReadOnlyFiles": false,
+    "showTests": false,
+    "showPointValues": false,
+    "showEvaluatorType": false,
+    "hideFromModel": [
+      "Official test source",
+      "Test point values",
+      "Evaluator type",
+      "Internal runtime configuration",
+      "Test implementation details"
+    ]
+  },
+  "tests": [
+    {
+      "id": "form-element",
+      "name": "Test form element",
+      "framework": "qunit",
+      "path": "tests/test-1-form-element.js",
+      "source": "// Set unit test configuration by changing the value in comment:\n// \n// SOURCE_FILE = index.html\n// BROWSER_HEADLESS = true\n\nQUnit.test('Test form element', function(assert) {\n   let form = document.querySelector('form');\n   assert.ok(form !== null, '<form> element exists');\n   assert.equal(form.method.toUpperCase(), 'POST', 'Form method is POST');\n   assert.equal(form.action, 'https://wp.zybooks.com/form-viewer.php', 'Form action is zybooks.com URL');\n});\n",
+      "points": 1,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": false
+    },
+    {
+      "id": "fieldset-elements",
+      "name": "Test fieldset elements",
+      "framework": "qunit",
+      "path": "tests/test-2-fieldset-elements.js",
+      "source": "// Set unit test configuration by changing the value in comment:\n// \n// SOURCE_FILE = index.html\n// BROWSER_HEADLESS = true\n\nQUnit.test('Test fieldset elements', function(assert) {\n\n   const fieldsets = document.querySelectorAll('form fieldset');\n   \n   assert.equal(fieldsets.length, 2, 'Number of <fieldset> elements in <form>');\n   \n   //const legends = Array.from(fieldsets[0].children).filter(elem => elem.querySelector('legend') !== null);\n   const legends1 = fieldsets[0].querySelectorAll('legend');\n   assert.equal(legends1.length, 1, 'First <fieldset> contains a single <legend> element');\n   assert.equal(legends1[0].innerText, 'Status:', 'First <fieldset> legend text');\n   \n   const legends2 = fieldsets[1].querySelectorAll('legend');\n   assert.equal(legends2.length, 1, 'Second <fieldset> contains a single <legend> element');\n   assert.equal(legends2[0].innerText, 'Players:', 'Second <fieldset> legend text');\n   \n});\n",
+      "points": 1,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": false
+    },
+    {
+      "id": "radio-buttons",
+      "name": "Test radio buttons",
+      "framework": "qunit",
+      "path": "tests/test-3-radio-buttons.js",
+      "source": "// Set unit test configuration by changing the value in comment:\n// \n// SOURCE_FILE = index.html\n// BROWSER_HEADLESS = true\n\nQUnit.test('Test radio buttons', function(assert) {\n   const fieldSet = document.querySelector('form fieldset');\n   if (fieldSet === null) {\n      assert.ok(false, 'Status <fieldset> exists');\n   }\n\n   const radioBtns = fieldSet.querySelectorAll('input[type=radio]');\n   assert.equal(radioBtns.length, 2, 'Number of radio button <input> elements in first <fieldset>');\n   assert.equal(radioBtns[0].name, 'status', 'First radio button uses correct name');\n   assert.equal(radioBtns[1].name, 'status', 'Second radio button uses correct name');   \n});\n",
+      "points": 1,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": false
+    },
+    {
+      "id": "radio-labels",
+      "name": "Test labels for radio buttons",
+      "framework": "qunit",
+      "path": "tests/test-4-radio-labels.js",
+      "source": "// Set unit test configuration by changing the value in comment:\n// \n// SOURCE_FILE = index.html\n// BROWSER_HEADLESS = true\n\nQUnit.test('Test labels for radio buttons', function(assert) {\n   const fieldSet = document.querySelector('form fieldset');\n   if (fieldSet === null) {\n      assert.ok(false, 'Status <fieldset> exists');\n   }\n\n   // Find radio buttons\n   const radioBtns = fieldSet.querySelectorAll('input[type=radio]');\n   assert.equal(radioBtns.length, 2, 'Number of radio button <input> elements in first <fieldset>');\n   \n   // Find labels\n   const labels = fieldSet.querySelectorAll('label');\n   assert.equal(labels.length, 2, 'Number of <label> elements in first <fieldset>');\n\n   // Label can surround radio button or be separated, so accept either way\n   if (radioBtns[0].parentElement.tagName === 'LABEL') {\n      assert.equal(radioBtns[0].parentElement.tagName.toLowerCase(), 'label', 'First radio button has <label> parent');\n      assert.equal(radioBtns[0].parentElement.innerText.trim(), 'Draft', 'First radio button label text');\n   }\n   else {\n      // Test label's for attribute\n      const labelFor = labels[0].getAttribute('for');\n      assert.ok(labelFor !== null, 'First <label> has a \"for\" attribute');\n      const radioId = radioBtns[0].getAttribute('id');\n      assert.ok(radioId !== null, 'First radio button has an \"id\" attribute');\n      assert.equal(labelFor, radioId, 'First label\\'s \"for\" attribute value matches first radio button\\'s id');\n\n      // Make sure label comes AFTER radio button\n      if (radioBtns[0].previousElementSibling === null) {\n         assert.ok(false, 'Element before first radio button <input> is <legend>');\n      }\n      const prevElement = radioBtns[0].previousElementSibling.tagName.toLowerCase();\n      assert.equal(prevElement, 'legend', 'Element before first radio button <input> element');\n      const nextElement = radioBtns[0].nextElementSibling.tagName.toLowerCase();\n      assert.equal(nextElement, 'label', 'Element after first radio button <input> element');\n   }\n   \n   if (radioBtns[1].parentElement.tagName === 'LABEL') {\n      assert.equal(radioBtns[1].parentElement.tagName.toLowerCase(), 'label', 'Second radio button has <label> parent');   \n      assert.equal(radioBtns[1].parentElement.innerText.trim(), 'Final', 'Second radio button label text');\n   }\n   else {\n      // Test label's for attribute\n      const labelFor = labels[1].getAttribute(\"for\");\n      assert.ok(labelFor !== null, 'Second <label> has a \"for\" attribute');\n      const radioId = radioBtns[1].getAttribute(\"id\");\n      assert.ok(radioId !== null, 'Second radio button has an \"id\" attribute');\n      assert.equal(labelFor, radioId, 'Second label\\'s \"for\" attribute value matches second radio button\\'s id');\n\n      // Make sure label comes AFTER radio button\n      if (radioBtns[1].nextElementSibling === null) {\n         assert.ok(false, 'Element after second radio button <input> is <label>');\n      }\n      const prevElement = radioBtns[1].previousElementSibling.tagName.toLowerCase();\n      assert.equal(prevElement, 'label', 'Element before second radio button <input> element');\n      const nextElement = radioBtns[1].nextElementSibling.tagName.toLowerCase();\n      assert.equal(nextElement, 'label', 'Element after second radio button <input> element');\n   }\n});\n",
+      "points": 1,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": false
+    },
+    {
+      "id": "date-select",
+      "name": "Test drop-down select element",
+      "framework": "qunit",
+      "path": "tests/test-5-date-select.js",
+      "source": "// Set unit test configuration by changing the value in comment:\n// \n// SOURCE_FILE = index.html\n// BROWSER_HEADLESS = true\n\nQUnit.test('Test drop-down select element', function(assert) {\n   let select = document.querySelector('form select');\n   assert.ok(select !== null, '<select> in <form> exists');   \n   assert.equal(select.name, 'gameDate', '<select> name is correct');\n});\n",
+      "points": 1,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": false
+    },
+    {
+      "id": "date-options",
+      "name": "Test drop-down option elements",
+      "framework": "qunit",
+      "path": "tests/test-6-date-options.js",
+      "source": "// Set unit test configuration by changing the value in comment:\n// \n// SOURCE_FILE = index.html\n// BROWSER_HEADLESS = true\n\nQUnit.test('Test drop-down option elements', function(assert) {\n   const dates = ['March 20', 'March 24', 'April 2', 'April 6', 'April 13'];\n   \n   let options = document.querySelectorAll('select option');\n   assert.equal(options.length, dates.length, 'Number of <option> elements in <select>');\n   \n   // Use if statements to shorten amount of feedback in unit tests\n   for (let i = 0; i < dates.length; i++) {\n      if (options[i].value !== dates[i]) {\n         assert.equal(options[i].value, dates[i], '<option> ' + (i+1) + ' value');\n      }\n\n      if (options[i].innerText !== dates[i]) {\n         assert.equal(options[i].innerText, dates[i], '<option> ' + (i+1) + ' text');\n      }\n   }\n\n   assert.ok(true, 'All <option> values and text are correct');\n});\n",
+      "points": 1,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": false
+    },
+    {
+      "id": "checkbox-inputs",
+      "name": "Test checkbox input elements",
+      "framework": "qunit",
+      "path": "tests/test-7-checkbox-inputs.js",
+      "source": "// Set unit test configuration by changing the value in comment:\n// \n// SOURCE_FILE = index.html\n// BROWSER_HEADLESS = true\n\nQUnit.test('Test checkbox input elements', function(assert) {\n   const names = ['Aarav Agarwal', 'Ava Johnson', 'Julio Ortiz', 'Liam Rubio', 'Emma Witherspoon'];\n      \n   let checkboxes = document.querySelectorAll('fieldset input[type=checkbox]');\n   assert.equal(checkboxes.length, names.length, 'Number of checkbox <input> elements in <fieldset>');\n   \n   // Use if statements to shorten amount of feedback in unit tests\n   for (let i = 0; i < checkboxes.length; i++) {\n      if (checkboxes[i].name !== 'player') {\n         assert.equal(checkboxes[i].name, 'player', 'Checkbox <input> ' + (i+1) + ' name');\n      }\n\n      if (checkboxes[i].value !== names[i]) {\n         assert.equal(checkboxes[i].value, names[i], 'Checkbox <input> ' + (i+1) + ' value');\n      }\n   }\n\n   assert.ok(true, 'All checkbox <input> names and values are correct');\n});\n",
+      "points": 2,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": false
+    },
+    {
+      "id": "checkbox-labels",
+      "name": "Test checkbox label elements",
+      "framework": "qunit",
+      "path": "tests/test-8-checkbox-labels.js",
+      "source": "// Set unit test configuration by changing the value in comment:\n// \n// SOURCE_FILE = index.html\n// BROWSER_HEADLESS = true\n\nQUnit.test('Test checkbox label elements', function(assert) {\n   const names = ['Aarav Agarwal', 'Ava Johnson', 'Julio Ortiz', 'Liam Rubio', 'Emma Witherspoon'];\n      \n   let checkboxes = document.querySelectorAll('fieldset input[type=checkbox]');\n   assert.equal(checkboxes.length, names.length, 'Number of checkbox <input> elements in <fieldset>');\n   \n   // Use if statements to shorten amount of feedback in unit tests\n   for (let i = 0; i < checkboxes.length; i++) {\n      // Allow label around checkbox or separated from checkbox\n      if (checkboxes[i].parentElement.tagName === 'LABEL') {\n         if (checkboxes[i].parentElement.tagName.toLowerCase() !== 'label') {\n            assert.equal(checkboxes[i].parentElement.tagName.toLowerCase(), 'label', \n               'Checkbox <input> ' + (i+1) + ' has <label> parent');\n         }\n\n         if (checkboxes[i].parentElement.innerText !== names[i]) {\n            assert.equal(checkboxes[i].parentElement.innerText, names[i], \n               'Checkbox <input> ' + (i+1) + ' label text');\n         }\n      }\n      else {\n         // Find checkbox id         \n         const id = checkboxes[i].getAttribute(\"id\");\n\n         // Use if statements to reduce amount of test feedback\n         if (id === null) {\n            assert.ok(id !== null, 'Checkbox has an \"id\" attribute');\n         }\n\n         // Verify no spaces exist in the ID\n         if (id.search(/\\s/) !== -1) {\n            assert.ok(false, `Checkbox's id attribute \"${id}\" contains NO spaces`);\n         }\n         \n         // Find label that matches checkbox id\n         const label = document.querySelector(`form label[for='${id}']`);\n         if (label === null) {\n            assert.ok(label !== null, `Label has \"for\" attribute that matches checkbox id \"${id}\"`);\n         }\n\n         const labelAdjacent = document.querySelector(`#${id} + label[for='${id}']`);\n         if (labelAdjacent === null) {\n            assert.ok(labelAdjacent !== null, `Checkbox's label is in front of checkbox with id \"${id}\"`);\n         }\n         if (label.innerText !== names[i]) {\n            assert.equal(label.innerText, names[i], `Checkbox <input> ${i+1} label text`);\n         }\n      }\n   }\n\n   assert.ok(true, 'All checkbox <input> elements have corresponding <label> elements');\n\n});\n",
+      "points": 1,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": false
+    },
+    {
+      "id": "submit-button",
+      "name": "Test submit button",
+      "framework": "qunit",
+      "path": "tests/test-9-submit-button.js",
+      "source": "// Set unit test configuration by changing the value in comment:\n// \n// SOURCE_FILE = index.html\n// BROWSER_HEADLESS = true\n\nQUnit.test('Test submit button', function(assert) {\n\n   // Allow <button> and <input type=\"submit\"> for backwards compatibility with previous version\n   // of this lab. The previous version had some incorrect instructions, so this new one replaces it.\n\n   const submitBtns = document.querySelectorAll('form button');\n   const altSubmitBtns = document.querySelectorAll('form input[type=submit]');\n   if (submitBtns.length === 0 && altSubmitBtns.length === 0) {\n      assert.ok(false, 'Single submit <button> exists');\n   }\n   else if (submitBtns.length === 0 && altSubmitBtns.length === 1) {\n      assert.ok(true, 'Single submit <input> button exists');\n      assert.equal(altSubmitBtns[0].value, 'Submit', 'Submit button is labeled correctly');\n   }\n   else {\n      assert.ok(submitBtns.length === 1, 'Single submit <button> exists');\n      assert.equal(submitBtns[0].innerText, 'Submit', 'Submit button is labeled correctly');\n   }\n});\n",
+      "points": 1,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": false
+    }
+  ],
+  "scoring": {
+    "mode": "test_all_or_nothing",
+    "requireExplicitPoints": true,
+    "maximumPoints": 10,
+    "activationStatus": "ready"
+  },
+  "metadata": {
+    "tags": [
+      "html",
+      "forms",
+      "radio-buttons",
+      "checkboxes",
+      "select"
+    ],
+    "knownIssues": [
+      "Some written assignment requirements are not directly checked by the supplied tests.",
+      "styles.css is referenced by index.html but was not supplied.",
+      "styles.css is not needed by the official unit tests."
+    ],
+    "notes": [
+      "There are exactly nine official tests.",
+      "The original numbering skipped a number. Do not create a missing test entry.",
+      "Do not list any missing unit test.",
+      "Do not say point values are missing.",
+      "Do not create a fake test 7."
+    ]
+  }
+}

@@ -1,0 +1,265 @@
+{
+  "schemaVersion": "1.0",
+  "id": "notable-quotes",
+  "title": "Notable Quotes",
+  "description": "Use XMLHttpRequest to fetch quotes from a web API and display successful responses or error messages in the webpage.",
+  "course": "COSC 4398",
+  "sourcePlatform": "zyBooks",
+
+  "assignmentType": "javascript-browser-api",
+  "evaluatorType": "browser_qunit_mocked_api",
+  "language": "javascript",
+
+  "technologies": [
+    "JavaScript",
+    "XMLHttpRequest",
+    "JSON",
+    "DOM",
+    "HTML",
+    "QUnit"
+  ],
+
+  "instructions": {
+    "studentPrompt": "Complete quote.js so the webpage fetches and displays quotes from the zyBooks quote API.\n\nThe quote API endpoint is:\nhttps://wp.zybooks.com/quotes.php\n\nThe API accepts these query-string parameters:\n\n- topic: The requested quote topic. Valid topics are love, motivational, wisdom, and humor.\n- count: The number of quotes requested. The value must be from 1 through 5.\n\nFor example:\nhttps://wp.zybooks.com/quotes.php?topic=love&count=3\n\nModify fetchQuotes(topic, count) so it:\n\n- Creates a new XMLHttpRequest object.\n- Opens a GET request using the exact URL format https://wp.zybooks.com/quotes.php?topic=TOPIC&count=COUNT.\n- Places the topic parameter before the count parameter.\n- Sets responseType to json.\n- Registers responseReceivedHandler as the load-event handler using addEventListener or the onload property.\n- Calls send().\n- Removes the existing call to showAnonymousQuotes().\n\nImplement responseReceivedHandler() with no parameters.\n\nThe function must read the XMLHttpRequest response using this.response.\n\nWhen the response contains an array of quotes, place an ordered list inside the element with id quotes. Each list item must use this exact format:\n\nQuote text - Source\n\nPreserve the order of the quotes in the response.\n\nWhen the response contains an error property, display the error inside a paragraph element within the quotes div.\n\nReturn the complete quote.js file."
+  },
+
+  "files": [
+    {
+      "path": "index.html",
+      "role": "read_only",
+      "language": "html",
+      "includeInPrompt": true,
+      "requiredInSubmission": false,
+      "preserve": true,
+      "content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n   <title>Notable Quotes</title>\n   <link rel=\"stylesheet\" href=\"styles.css\">\n   <script src=\"quote.js\"></script>\n</head>\n<body>\n   <h1>Notable Quotes</h1>\n   <p>\n      <label for=\"topicSelection\">Select a topic:</label>\n      <select id=\"topicSelection\">\n         <option>Choose one</option>\n         <option>love</option>\n         <option>motivational</option>\n         <option>wisdom</option>\n         <option>humor</option>\n      </select>\n   </p>\n   <p>\n      <label for=\"countSelection\">How many quotes?</label>\n      <select id=\"countSelection\">\n         <option>1</option>\n         <option>2</option>\n         <option selected>3</option>\n         <option>4</option>\n         <option>5</option>\n      </select>\n   </p>\n   <p>\n      <button id=\"fetchQuotesBtn\">Fetch Quotes</button>\n   </p>\n   <div id=\"quotes\">\n   </div>\n</body>\n</html>\n"
+    },
+    {
+      "path": "quote.js",
+      "role": "editable",
+      "language": "javascript",
+      "includeInPrompt": true,
+      "requiredInSubmission": true,
+      "preserve": false,
+      "content": "window.addEventListener(\"DOMContentLoaded\", function () {\n   document.querySelector(\"#fetchQuotesBtn\").addEventListener(\"click\", function () {\n\n      // Get values from drop-downs\n      const topicDropdown = document.querySelector(\"#topicSelection\");\n      const selectedTopic = topicDropdown.options[topicDropdown.selectedIndex].value;\n      const countDropdown = document.querySelector(\"#countSelection\");\n      const selectedCount = countDropdown.options[countDropdown.selectedIndex].value;\n   \n      // Get and display quotes\n      fetchQuotes(selectedTopic, selectedCount);      \n   });\n});\n\nfunction showAnonymousQuotes(count) {\n   let html = \"<ol>\";\n   for (let c = 1; c <= count; c++) {\n      html += `<li>Quote ${c} - Anonymous</li>`;\n   }\n   html += \"</ol>\";\n\n   document.querySelector(\"#quotes\").innerHTML = html;\n}\n\nfunction fetchQuotes(topic, count) {\n   // TODO: Modify to use XMLHttpRequest\n\n   // TODO: Remove the call to showAnonymousQuotes()\n   showAnonymousQuotes(count);\n}\n\nfunction responseReceivedHandler() {\n   // TODO: Complete the function\n\n}\n"
+    },
+    {
+      "path": "styles.css",
+      "role": "read_only",
+      "language": "css",
+      "content": null,
+      "includeInPrompt": false,
+      "requiredInSubmission": false,
+      "preserve": true,
+      "notes": "styles.css is referenced by index.html but was not supplied and is not required by the official tests."
+    }
+  ],
+
+    "referenceSolution": {
+    "source": "zyBooks",
+    "files": [
+      {
+        "path": "quote.js",
+        "language": "javascript",
+        "content": "window.addEventListener(\"DOMContentLoaded\", function () {\n   document.querySelector(\"#fetchQuotesBtn\").addEventListener(\"click\", function () {\n\n      // Get values from drop-downs\n      const topicDropdown = document.querySelector(\"#topicSelection\");\n      const selectedTopic = topicDropdown.options[topicDropdown.selectedIndex].value;\n      const countDropdown = document.querySelector(\"#countSelection\");\n      const selectedCount = countDropdown.options[countDropdown.selectedIndex].value;\n   \n      // Get and display quotes\n      fetchQuotes(selectedTopic, selectedCount);      \n   });\n});\n\nfunction showAnonymousQuotes(count) {\n   let html = \"<ol>\";\n   for (let c = 1; c <= count; c++) {\n      html += `<li>Quote ${c} - Anonymous</li>`;\n   }\n   html += \"</ol>\";\n\n   const quotes = document.querySelector(\"#quotes\");\n   quotes.innerHTML = html;\n}\n\nfunction fetchQuotes(topic, count) {\n   const endpoint = \"https://wp.zybooks.com/quotes.php\";\n   const queryString = `topic=${topic}&count=${count}`;\n   const url = `${endpoint}?${queryString}`;\n \n   const xhr = new XMLHttpRequest();\n   xhr.addEventListener(\"load\", responseReceivedHandler);\n   xhr.responseType = \"json\";\n   xhr.open(\"GET\", url);\n   xhr.send();\n}\n \nfunction responseReceivedHandler() {\n   const quotes = document.querySelector(\"#quotes\");\n   if (this.status === 200) {\n      if (this.response.error) {\n         quotes.innerHTML = `<p>${this.response.error}</p>`;\n      } \n      else {\n         let html = \"<ol>\";\n         for (let quoteItem of this.response) {\n            html += `<li>${quoteItem.quote} - ${quoteItem.source}</li>`;\n         }\n         html += \"</ol>\";\n         \n         quotes.innerHTML = html;\n      }\n   } \n   else {\n      quotes.innerHTML = \"<p>Quote API is unavailable.</p>\";\n   }\n}\n"
+      }
+    ]
+  },
+
+  "submissionRules": {
+    "mode": "full_editable_file",
+    "editablePaths": [
+      "quote.js"
+    ],
+    "allowExtraFiles": false,
+    "allowMissingFiles": false,
+    "strictOutput": true,
+
+    "validation": [
+      "Require the complete quote.js file.",
+      "Reject markdown code fences.",
+      "Reject explanatory text outside the JavaScript.",
+      "Reject missing required files.",
+      "Reject extra files.",
+      "Require the exact filename quote.js.",
+      "Prevent modification of index.html and styles.css.",
+      "Perform JavaScript syntax validation before running tests."
+    ],
+
+    "notes": "Do not automatically clean or repair malformed model output. Invalid formatting should result in FORMAT_ERROR."
+  },
+
+  "runtime": {
+    "environment": "browser",
+    "entryFile": "index.html",
+    "browserEngine": "Chromium",
+    "headless": true,
+    "network": "disabled",
+    "processIsolation": "fresh_environment",
+    "testIsolation": "fresh_page",
+    "waitFor": "load",
+
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+
+    "setupTimeoutMs": 10000,
+    "individualTestTimeoutMs": 5000,
+    "totalTimeoutMs": 30000
+  },
+
+  "mocks": {
+    "browserApis": [
+      "XMLHttpRequest"
+    ],
+    "replaceableGlobals": [
+      "window.XMLHttpRequest",
+      "responseReceivedHandler"
+    ],
+    "resetBetweenTests": true,
+    "networkRequired": false
+  },
+
+  "promptPolicy": {
+    "showInstructions": true,
+    "showEditableFiles": true,
+    "showReadOnlyFiles": true,
+    "showTests": false,
+    "showPointValues": false,
+    "showEvaluatorType": false,
+    "showImages": false,
+
+    "hideFromModel": [
+      "Official test source",
+      "XMLHttpRequest mock implementation",
+      "Test point values",
+      "Evaluator type",
+      "Internal runtime configuration",
+      "Test implementation details"
+    ]
+  },
+
+  "tests": [
+    {
+      "id": "xhr-load-handler",
+      "name": "Test XMLHttpRequest addEventListener() method",
+      "framework": "qunit",
+      "path": "tests/test-1-xhr-load-handler.js",
+      "source": "QUnit.test('Test XMLHttpRequest addEventListener() method', function (assert) {\n\n   const mockXhr = {\n      open(requestType, url) { },\n      send() { },\n      addEventListener(event, handler) {\n         testAddEventListener(event, handler);\n      },\n      onload: null\n   }\n\n   let funcCalled = false;\n\n   const mockResponseReceivedHandler = function(xhr) {\n      funcCalled = true;\n   } \n\n   responseReceivedHandler = mockResponseReceivedHandler;\n\n   const testAddEventListener = function(event, handler) {\n      funcCalled = true;\n      assert.equal(event, 'load', 'Call addEventListener() with \"load\" event');\n      assert.ok(handler == mockResponseReceivedHandler, 'Call addEventListener() with responseReceivedHandler()');\n   }\n\n   window.XMLHttpRequest = function() {\n      return mockXhr;\n   };\n\n   const topic = 'love';\n   const count = 3;\n   fetchQuotes(topic, count);\n\n   // Student can set onload property or call addEventListener(\"load\")\n   if (mockXhr.onload !== null) {\n      assert.equal(typeof mockXhr.onload, 'function', 'onload set to a function');\n\n      // Call the onload event handler to verify it is calling our mock \n      mockXhr.onload();\n      assert.ok(funcCalled, 'onload event handler calls responseReceivedHandler()');\n   }\n   else {\n      assert.ok(funcCalled, 'XMLHttpRequest addEventListener() is called');\n   }\n\n});",
+      "points": 1,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": true
+    },
+    {
+      "id": "xhr-open",
+      "name": "Test XMLHttpRequest open() method",
+      "framework": "qunit",
+      "path": "tests/test-2-xhr-open.js",
+      "source": "QUnit.test('Test XMLHttpRequest open() method', function (assert) {\n\n   class MockXhr {\n      open(requestType, url) { testOpen(requestType, url); }\n      send() { }\n      addEventListener(event, handler) { }\n   }\n\n   let funcCalled = false;\n\n   function testOpen(requestType, url) {\n      funcCalled = true;\n      const endpoint = \"https://wp.zybooks.com/quotes.php\";\n      const apiUrl = `${endpoint}?topic=${topic}&count=${count}`;\n      assert.equal(url, apiUrl, 'Call open() with correct URL');\n      assert.equal(requestType, 'GET', 'Call open() with correct request type');\n   }\n\n   window.XMLHttpRequest = MockXhr;\n\n   const topic = 'love';\n   const count = 3;\n   fetchQuotes(topic, count);\n\n   assert.ok(funcCalled === true, 'XMLHttpRequest open() is called');\n});",
+      "points": 1,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": true
+    },
+    {
+      "id": "xhr-response-type",
+      "name": "Test XMLHttpRequest responseType",
+      "framework": "qunit",
+      "path": "tests/test-3-xhr-response-type.js",
+      "source": "QUnit.test('Test XMLHttpRequest responseType', function (assert) {\n\n   class MockXhr {\n      open(requestType, url) { }\n      send() { }\n      addEventListener(event, handler) { }\n\n      set responseType(respType) {\n         testSetResponseType(respType);\n      }\n   }\n\n   let funcCalled = false;\n   function testSetResponseType(respType) {\n      funcCalled = true;\n      assert.equal(respType, 'json', 'Set responseType to \"json\"');\n   }\n\n   window.XMLHttpRequest = MockXhr;\n\n   const topic = 'love';\n   const count = 3;\n   fetchQuotes(topic, count);\n\n   assert.ok(funcCalled === true, 'XMLHttpRequest responseType is set');\n});",
+      "points": 1,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": true
+    },
+    {
+      "id": "xhr-send",
+      "name": "Test XMLHttpRequest send() method",
+      "framework": "qunit",
+      "path": "tests/test-4-xhr-send.js",
+      "source": "QUnit.test('Test XMLHttpRequest send() method', function (assert) {\n   class MockXhr {\n      open(requestType, url) { }\n      send() { testSend(); }\n      addEventListener(event, handler) { }\n   }\n\n   let funcCalled = false;\n   function testSend() {\n      funcCalled = true;\n   }\n\n   window.XMLHttpRequest = MockXhr;\n\n   const topic = 'love';\n   const count = 3;\n   fetchQuotes(topic, count);\n\n   assert.ok(funcCalled === true, 'XMLHttpRequest send() is called');\n});",
+      "points": 1,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": true
+    },
+    {
+      "id": "display-humor-response",
+      "name": "Test responseReceivedHandler() with humor quote",
+      "framework": "qunit",
+      "path": "tests/test-5-display-humor-response.js",
+      "source": "QUnit.test('Test responseReceivedHandler() with humor quote', function (assert) {\n\n   const ajaxResponse = {\n      status: 200,\n      response: [\n         {\n            quote: \"Outside of a dog, a book is man's best friend. Inside of a dog it's too dark to read\",\n            source: 'Groucho Marx'\n         }\n      ]\n   };\n\n   assert.ok(typeof responseReceivedHandler === 'function', 'responseReceivedHandler() is defined');\n   assert.strictEqual(responseReceivedHandler.length, 0, 'responseReceivedHandler() has no parameters');\n\n   responseReceivedHandler.call(ajaxResponse);\n\n   let html = '<ol>';\n   for (let quote of ajaxResponse.response) {\n      html += `<li>${quote.quote} - ${quote.source}</li>`;\n   }\n   html += '</ol>';\n\n   const quotes = document.querySelector(\"#quotes\");\n   assert.equal(quotes.innerHTML.trim(), html, 'innerHTML of <div> is correct');\n});",
+      "points": 2,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": false
+    },
+    {
+      "id": "display-wisdom-response",
+      "name": "Test responseReceivedHandler() with wisdom quotes",
+      "framework": "qunit",
+      "path": "tests/test-6-display-wisdom-response.js",
+      "source": "QUnit.test('Test responseReceivedHandler() with wisdom quote', function(assert) {\n   \n   const ajaxResponse = {\n      status: 200,\n      response: [\n         { \n            quote: 'No one can make you feel inferior without your consent.', \n            source: 'Eleanor Roosevelt' \n         },\n         { \n            quote: 'Love is a better teacher than duty.', \n            source: 'Albert Einstein' \n         },\n         { \n            quote: 'The way to get started is to quit talking and begin doing.', \n            source: 'Walt Disney' \n         },\n         { \n            quote: 'It is during our darkest moments that we must focus to see the light.', \n            source: 'Aristotle' \n         },\n         { \n            quote: 'Whoever is happy will make others happy too.', \n            source: 'Anne Frank' \n         }\n      ] \n   };\n   \n   assert.ok(typeof responseReceivedHandler === 'function', 'responseReceivedHandler() is defined');\n   assert.strictEqual(responseReceivedHandler.length, 0, 'responseReceivedHandler() has no parameters');\n   \n   responseReceivedHandler.call(ajaxResponse);\n   \n   let html = '<ol>';\n   for (let quote of ajaxResponse.response) { \n      html += `<li>${quote.quote} - ${quote.source}</li>`;\n   }\n   html += '</ol>';\n   \n   const quotes = document.querySelector(\"#quotes\");\n   \n   // Test ignoring spaces\n   /* let innerHtml = quotes.innerHTML.replace(/\\n/gm, \"\");  */\n   /* let regex = new RegExp(\"\\n\", \"gm\"); */\n   /* let innerHtml = \"te\\ns\\nt\".replace(regex, \"\"); */\n   assert.equal(quotes.innerHTML.trim(), html, 'innerHTML of <div> is correct');\n});",
+      "points": 2,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": false
+    },
+    {
+      "id": "display-error-response",
+      "name": "Test responseReceivedHandler() with error",
+      "framework": "qunit",
+      "path": "tests/test-7-display-error-response.js",
+      "source": "QUnit.test('Test responseReceivedHandler() with error', function(assert) {\n   const ajaxResponse = {\n      status: 200,\n      response: {\n         error: \"Topic 'friendship' not found\"\n      }  \n   };\n   \n   assert.ok(typeof responseReceivedHandler === 'function', 'responseReceivedHandler() is defined');\n   assert.strictEqual(responseReceivedHandler.length, 0, 'responseReceivedHandler() has no parameters');\n   \n   responseReceivedHandler.call(ajaxResponse);\n   \n   const quotes = document.querySelector(\"#quotes\");\n   assert.equal(quotes.innerHTML.trim(), `<p>${ajaxResponse.response.error}</p>`, \n      'innerHTML of <div> shows error message');\n});",
+      "points": 2,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": false
+    }
+  ],
+
+  "scoring": {
+    "mode": "test_all_or_nothing",
+    "requireExplicitPoints": true,
+    "maximumPoints": 10,
+    "activationStatus": "ready"
+  },
+
+  "metadata": {
+    "difficulty": "medium",
+
+    "tags": [
+      "javascript",
+      "xmlhttprequest",
+      "json",
+      "dom",
+      "api",
+      "qunit"
+    ],
+
+    "knownIssues": [
+      "The official tests replace window.XMLHttpRequest with mock implementations.",
+      "The first official test replaces the global responseReceivedHandler function.",
+      "Each test must run in a fresh page so mocked globals do not leak between tests.",
+      "The evaluator does not need live access to the quote API.",
+      "The query-string parameter order must be topic first and count second.",
+      "responseReceivedHandler must declare zero parameters and access the response through this.response.",
+      "The expected innerHTML is compared against a compact exact string."
+    ]
+  }
+}

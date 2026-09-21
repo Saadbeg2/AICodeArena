@@ -1,0 +1,36 @@
+backend/venv/
+backend/.venv/
+backend/.env
+backend/*.db
+frontend/.env.local
+
+node_modules/
+dist/
+
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+.DS_Store
+
+*.log
+*.out
+*.err
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+.tmp/
+tmp/
+temp/
+
+# Added for publication cleanup
+.env
+*.sqlite*
+*.sqlite3
+build/
+Gemini Failure

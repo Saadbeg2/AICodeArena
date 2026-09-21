@@ -1,0 +1,1 @@
+"""AICodeArena backend application package."""

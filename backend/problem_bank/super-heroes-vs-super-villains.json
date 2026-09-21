@@ -1,0 +1,254 @@
+{
+  "schemaVersion": "1.0",
+  "id": "super-heroes-vs-super-villains",
+  "title": "Super Heroes vs. Super Villains",
+  "description": "Create JavaScript classes that model super humans, heroes, and villains and determine the winner of a battle.",
+  "course": "COSC 4398",
+  "sourcePlatform": "zyBooks",
+  "assignmentType": "javascript-classes",
+  "evaluatorType": "browser_qunit_javascript",
+  "language": "javascript",
+  "technologies": [
+    "JavaScript",
+    "ES6 Classes",
+    "Inheritance",
+    "DOM",
+    "QUnit"
+  ],
+  "instructions": {
+    "studentPrompt": "Complete hero.js by defining three JavaScript classes: SuperHuman, SuperHero, and SuperVillain.\n\nRequirements:\n\n- Create a SuperHuman class.\n- The SuperHuman constructor must have exactly two parameters: name and powerLevel.\n- The SuperHuman constructor must assign name and powerLevel to properties with the same names.\n- Create a SuperHero class that extends SuperHuman.\n- The SuperHero constructor must have exactly three parameters: name, alias, and powerLevel.\n- The SuperHero constructor must call the parent constructor with name and powerLevel.\n- The SuperHero constructor must assign alias to an alias property.\n- Add a battle() method to SuperHero that accepts a SuperVillain object.\n- battle() must return true when the hero's powerLevel is greater than or equal to the villain's powerLevel.\n- battle() must return false when the hero's powerLevel is less than the villain's powerLevel.\n- Create a SuperVillain class that extends SuperHuman.\n- The SuperVillain constructor must have exactly three parameters: name, alias, and powerLevel.\n- The SuperVillain constructor must call the parent constructor with name and powerLevel.\n- The SuperVillain constructor must assign alias to an alias property.\n- Add a getEvilChuckle() method to SuperVillain.\n- getEvilChuckle() must return exactly \"Ha ha ha!\".\n- Define the classes in the global scope so index.js and the webpage can use SuperHero and SuperVillain."
+  },
+  "files": [
+    {
+      "path": "index.html",
+      "role": "read_only",
+      "language": "html",
+      "includeInPrompt": true,
+      "requiredInSubmission": false,
+      "preserve": true,
+      "content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n   <title>Super Heroes vs. Super Villains</title>\n   <link rel=\"stylesheet\" href=\"styles.css\">\n   <script src=\"hero.js\"></script>\n   <script src=\"index.js\" defer></script>\n</head>\n<body>\n   <h1>Super Heroes vs. Super Villains</h1>\n   <p>\n      <label for=\"heroSelect\">Select a hero:</label>\n      <select id=\"heroSelect\">\n         <option>Super Bacon</option>\n         <option>Flat-Man</option>\n         <option>Mighty Woman</option>\n         <option>Captain Marvelous</option>\n      </select>\n   </p>\n   <p>\n      <label for=\"villainSelect\">Select a villain:</label>\n      <select id=\"villainSelect\">\n         <option>The Jokester</option>\n         <option>Magnet Man</option>\n         <option>Lex Loner</option>\n         <option>Thankos</option>\n      </select>\n   </p>\n   <p id=\"winner\"></p>\n</body>\n</html>\n"
+    },
+    {
+      "path": "hero.js",
+      "role": "editable",
+      "language": "javascript",
+      "includeInPrompt": true,
+      "requiredInSubmission": true,
+      "preserve": false,
+      "content": "// TODO: Define SuperHuman, SuperHero, and SuperVillain classes here\n"
+    },
+    {
+      "path": "index.js",
+      "role": "read_only",
+      "language": "javascript",
+      "includeInPrompt": true,
+      "requiredInSubmission": false,
+      "preserve": true,
+      "content": "// Assume index.html has already loaded hero.js, which defines SuperHero and SuperVillain\n\nif (typeof SuperHero === \"function\" && typeof SuperVillain === \"function\") {\n   const heroes = {\n      \"Super Bacon\": new SuperHero(\"Jack Oinker\", \"Super Bacon\", 2),\n      \"Flat-Man\": new SuperHero(\"Peter Pranker\", \"Flat-Man\", 5),\n      \"Mighty Woman\": new SuperHero(\"Diana Dense\", \"Mighty Woman\", 8),\n      \"Captain Marvelous\": new SuperHero(\"Carol Hangers\", \"Captain Marvelous\", 9)\n   };\n\n   const villains = {\n      \"The Jokester\": new SuperVillain(\"Jack Nastier\", \"The Jokester\", 3),\n      \"Magnet Man\": new SuperVillain(\"Max Eisenhardt\", \"Magnet Man\", 6),\n      \"Lex Loner\": new SuperVillain(\"Lex Loner\", \"Lex Loner\", 2),\n      \"Thankos\": new SuperVillain(\"Thankos\", \"Thankos\", 9)\n   };\n\n   registerHandlers();\n\n   function registerHandlers() {\n      document.querySelector(\"#heroSelect\").addEventListener(\"change\", selectionChanged);\n      document.querySelector(\"#villainSelect\").addEventListener(\"change\", selectionChanged);\n\n      selectionChanged();\n   }\n\n   function selectionChanged() {\n      const selectedHeroValue = document.querySelector(\"#heroSelect\").value;\n      const selectedVillainValue = document.querySelector(\"#villainSelect\").value;\n\n      const selectedHero = heroes[selectedHeroValue];\n      const selectedVillain = villains[selectedVillainValue];\n\n      let winner;\n      if (selectedHero.battle(selectedVillain)) {\n         winner = selectedHero.alias;\n      }\n      else {\n         winner = selectedVillain.alias;\n      }\n\n      document.querySelector(\"#winner\").innerHTML = `Winner: ${winner}!`;\n   }\n}\n"
+    },
+    {
+      "path": "styles.css",
+      "role": "read_only",
+      "language": "css",
+      "includeInPrompt": false,
+      "requiredInSubmission": false,
+      "preserve": true,
+      "content": "body {\n   font-family: Arial, Helvetica, sans-serif;\n}\n",
+      "notes": "The supplied question labels this file style.css, but index.html references styles.css. The path uses styles.css so the project files remain consistent."
+    }
+  ],
+  "referenceSolution": {
+    "source": "zyBooks",
+    "files": [
+      {
+        "path": "hero.js",
+        "language": "javascript",
+        "content": "class SuperHuman {\n   constructor(name, powerLevel) {\n      this.name = name;\n      this.powerLevel = powerLevel;\n   }\n}\n\nclass SuperHero extends SuperHuman {\n   constructor(name, alias, powerLevel) {\n      super(name, powerLevel);\n      this.alias = alias;\n   }\n\n   battle(villain) {\n      return this.powerLevel >= villain.powerLevel;\n   }\n}\n\nclass SuperVillain extends SuperHuman {\n   constructor(name, alias, powerLevel) {\n      super(name, powerLevel);\n      this.alias = alias;\n   }\n\n   getEvilChuckle() {\n      return \"Ha ha ha!\";\n   }\n}\n"
+      }
+    ]
+  },
+  "submissionRules": {
+    "mode": "full_editable_file",
+    "editablePaths": [
+      "hero.js"
+    ],
+    "allowExtraFiles": false,
+    "allowMissingFiles": false,
+    "strictOutput": true,
+    "validation": [
+      "Require the complete hero.js file.",
+      "Reject markdown code fences.",
+      "Reject explanatory text outside the JavaScript.",
+      "Reject missing required files.",
+      "Reject extra files.",
+      "Require exact filenames.",
+      "Prevent modification of index.html, index.js, and styles.css.",
+      "Perform a JavaScript syntax check where practical."
+    ],
+    "notes": "Do not automatically clean or repair malformed model output. Invalid formatting should result in FORMAT_ERROR."
+  },
+  "runtime": {
+    "environment": "browser",
+    "entryFile": "index.html",
+    "browserEngine": "Chromium",
+    "headless": true,
+    "network": "disabled",
+    "processIsolation": "fresh_environment",
+    "testIsolation": "fresh_page",
+    "waitFor": "load",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "setupTimeoutMs": 10000,
+    "individualTestTimeoutMs": 5000,
+    "totalTimeoutMs": 30000
+  },
+  "promptPolicy": {
+    "showInstructions": true,
+    "showEditableFiles": true,
+    "showReadOnlyFiles": true,
+    "showTests": false,
+    "showPointValues": false,
+    "showEvaluatorType": false,
+    "hideFromModel": [
+      "Official test source",
+      "Test point values",
+      "Evaluator type",
+      "Internal runtime configuration",
+      "Test implementation details",
+      "Reference solution"
+    ]
+  },
+  "tests": [
+    {
+      "id": "superhuman-defined",
+      "name": "Test SuperHuman class is defined",
+      "framework": "qunit",
+      "path": "tests/test-1-superhuman-defined.js",
+      "source": "QUnit.test('Test SuperHuman class is defined', function(assert) {\n   assert.ok(typeof SuperHuman === 'function', 'SuperHuman class exists');\n});\n",
+      "points": 1,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": false
+    },
+    {
+      "id": "superhuman-constructor",
+      "name": "Test SuperHuman class constructor",
+      "framework": "qunit",
+      "path": "tests/test-2-superhuman-constructor.js",
+      "source": "QUnit.test('Test SuperHuman class constructor with new SuperHuman(\\'Human Name\\', 6)', function(assert) {\n   assert.ok(typeof SuperHuman === 'function', 'SuperHuman class exists');\n   assert.equal(SuperHuman.prototype.constructor.length, 2, 'Constructor has 2 parameters');\n\n   const hero = new SuperHuman('Human Name', 6);\n   assert.equal(hero.name, 'Human Name', 'name property set by constructor');\n   assert.equal(hero.powerLevel, 6, 'powerLevel property set by constructor');\n});\n",
+      "points": 1,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": false
+    },
+    {
+      "id": "superhero-defined",
+      "name": "Test SuperHero class is defined",
+      "framework": "qunit",
+      "path": "tests/test-3-superhero-defined.js",
+      "source": "QUnit.test('Test SuperHero class is defined', function(assert) {\n   assert.ok(typeof SuperHero === 'function', 'SuperHero class exists');\n   assert.ok(SuperHero.prototype instanceof SuperHuman, 'SuperHero extends SuperHuman class');\n});\n",
+      "points": 1,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": false
+    },
+    {
+      "id": "superhero-constructor",
+      "name": "Test SuperHero class constructor",
+      "framework": "qunit",
+      "path": "tests/test-4-superhero-constructor.js",
+      "source": "QUnit.test('Test SuperHero class constructor with new SuperHero(\\'Hero Name\\', \\'Hero Alias\\', 5)', function(assert) {\n   assert.ok(typeof SuperHero === 'function', 'SuperHero class exists');\n   assert.equal(SuperHero.prototype.constructor.length, 3, 'Constructor has 3 parameters');\n\n   const hero = new SuperHero('Hero Name', 'Hero Alias', 5);\n   assert.equal(hero.name, 'Hero Name', 'Hero name set by constructor');\n   assert.equal(hero.alias, 'Hero Alias', 'Hero alias set by constructor');\n   assert.equal(hero.powerLevel, 5, 'Hero powerLevel set by constructor');\n});\n",
+      "points": 1,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": false
+    },
+    {
+      "id": "superhero-battle",
+      "name": "Test SuperHero battle() method",
+      "framework": "qunit",
+      "path": "tests/test-5-superhero-battle.js",
+      "source": "QUnit.test('Test SuperHero battle() method', function(assert) {\n   assert.ok(typeof SuperHero === 'function', 'SuperHero class exists');\n   assert.ok(typeof SuperHero.prototype.battle === 'function', 'battle() method exists');\n   assert.ok(typeof SuperVillain === 'function', 'SuperVillain class exists');\n\n   const hero = new SuperHero('Hero Name', 'Hero Alias', 5);\n   const villain = new SuperVillain('Villain Name', 'Villain Alias', 5);\n\n   assert.equal(hero.battle(villain), true, 'Hero with power 5 defeats villain with power level 5');\n\n   villain.powerLevel = 6;\n\n   assert.equal(hero.battle(villain), false, 'Hero with power 5 loses to villain with power level 6');\n});\n",
+      "points": 2,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": false
+    },
+    {
+      "id": "supervillain-defined",
+      "name": "Test SuperVillain class is defined",
+      "framework": "qunit",
+      "path": "tests/test-6-supervillain-defined.js",
+      "source": "QUnit.test('Test SuperVillain is defined', function(assert) {\n   assert.ok(typeof SuperVillain === 'function', 'SuperVillain class exists');\n   assert.ok(SuperVillain.prototype instanceof SuperHuman, 'SuperVillain extends SuperHuman class');\n});\n",
+      "points": 1,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": false
+    },
+    {
+      "id": "supervillain-constructor",
+      "name": "Test SuperVillain class constructor",
+      "framework": "qunit",
+      "path": "tests/test-7-supervillain-constructor.js",
+      "source": "QUnit.test('Test SuperVillain class constructor with new SuperVillain(\\'Villain Name\\', \\'Villain Alias\\', 3)', function(assert) {\n   assert.ok(typeof SuperVillain === 'function', 'SuperVillain class exists');\n   assert.equal(SuperVillain.prototype.constructor.length, 3, 'Constructor has 3 parameters');\n\n   const villain = new SuperVillain('Villain Name', 'Villain Alias', 3);\n   assert.equal(villain.name, 'Villain Name', 'Villain name set by constructor');\n   assert.equal(villain.alias, 'Villain Alias', 'Villain alias set by constructor');\n   assert.equal(villain.powerLevel, 3, 'Villain powerLevel set by constructor');\n});\n",
+      "points": 2,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": false
+    },
+    {
+      "id": "supervillain-chuckle",
+      "name": "Test SuperVillain getEvilChuckle() method",
+      "framework": "qunit",
+      "path": "tests/test-8-supervillain-chuckle.js",
+      "source": "QUnit.test('Test SuperVillain getEvilChuckle() method', function(assert) {\n   assert.ok(typeof SuperVillain === 'function', 'SuperVillain class exists');\n   assert.ok(typeof SuperVillain.prototype.getEvilChuckle === 'function', 'getEvilChuckle() method exists');\n\n   const villain = new SuperVillain('Villain Name', 'Villain Alias', 3);\n\n   assert.equal(villain.getEvilChuckle(), 'Ha ha ha!', 'getEvilChuckle() returns correct string');\n});\n",
+      "points": 1,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": false
+    }
+  ],
+  "scoring": {
+    "mode": "test_all_or_nothing",
+    "requireExplicitPoints": true,
+    "maximumPoints": 10,
+    "activationStatus": "ready"
+  },
+  "metadata": {
+    "tags": [
+      "javascript",
+      "classes",
+      "inheritance",
+      "constructors",
+      "methods"
+    ],
+    "knownIssues": [
+      "The supplied question labels the stylesheet as style.css, but index.html references styles.css. This definition uses styles.css.",
+      "The supplied tests validate hero.js classes and methods but do not directly test the winner paragraph."
+    ],
+    "notes": [
+      "There are exactly eight official tests.",
+      "The official test points total 10.",
+      "Only hero.js is editable and required in the submission.",
+      "SuperHuman, SuperHero, and SuperVillain must remain globally accessible when loaded as a normal browser script."
+    ]
+  }
+}

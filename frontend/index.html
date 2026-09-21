@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' http://127.0.0.1:8000 http://localhost:8000 ws://127.0.0.1:5173 ws://localhost:5173; img-src 'self' data:; font-src 'self'"
+    />
+    <meta
+      name="description"
+      content="AICodeArena evaluation dashboard"
+    />
+    <title>AICodeArena</title>
+  </head>
+  <body>
+    <div id="root">
+      <main class="startup-shell" aria-live="polite">
+        <h1>AICodeArena</h1>
+        <p>Loading evaluation dashboard…</p>
+      </main>
+    </div>
+    <noscript>AICodeArena requires JavaScript to display the dashboard.</noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

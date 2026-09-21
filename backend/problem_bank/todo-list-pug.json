@@ -1,0 +1,190 @@
+{
+  "schemaVersion": "1.0",
+  "id": "todo-list-pug",
+  "title": "To-Do List",
+  "description": "Complete a Pug template for a Node.js to-do list app that displays tasks, adds new tasks through a form, and clears the list when requested.",
+  "course": "COSC 4398",
+  "sourcePlatform": "zyBooks",
+  "assignmentType": "node-pug-template",
+  "evaluatorType": "node_jest_pug_jsdom",
+  "language": "pug",
+  "technologies": [
+    "Node.js",
+    "Express",
+    "Pug",
+    "Jest",
+    "jsdom"
+  ],
+  "instructions": {
+    "studentPrompt": "In this lab, you will write the Pug code for managing a list of to-do items.\n\nThe lab contains a Node.js project composed of several files:\n\n- public/styles.css - The app's external stylesheet\n- views/index.pug - Pug file that displays the app's only webpage\n- server.js - Express server that stores to-do items in the todoList array and implements three routes:\n  - GET route to \"/\" renders index.pug, passing the todoList as a local\n  - POST route to \"/new\" adds a new item to todoList and redirects the browser back to the \"/\" route\n  - GET route to \"/clear\" removes all items from todoList and redirects the browser back to the \"/\" route\n\nOnly index.pug needs to be completed.\n\nStep 1: Show the list\n\nImplement the index.pug file to show an unordered list of the items in the todoList local. Use Pug's each loop to create the unordered list. The todoList local is initialized in server.js with two items, so the unordered list should initially show two items.\n\nEnsure that index.pug uses proper HTML structure and includes the following elements:\n\n- <title> that reads \"To-Do List\"\n- <link> that imports styles.css\n- <h1> at the top of the page that reads \"To-Do List\"\n\nStep 2: Add to the list\n\nAdd a <form> above the list that posts to the path \"/new\". The form should have an <input> for entering a to-do item and a submit <button> that reads \"Add\".\n\nWhen the form is working properly, added items are displayed at the bottom of the list.\n\nStep 3: Clear the list\n\nAdd an <a> with link text \"Clear\" that links to the path \"/clear\". When clicked, the list should disappear.\n\nAdd a Pug if-else conditional to show a <p> that reads \"Enter some tasks.\" when todoList is empty. Else the list should be displayed."
+  },
+  "files": [
+    {
+      "path": "views/index.pug",
+      "role": "editable",
+      "language": "pug",
+      "content": "//- TODO: Add your solution here\n",
+      "includeInPrompt": true,
+      "requiredInSubmission": true,
+      "preserve": false
+    },
+    {
+      "path": "server.js",
+      "role": "read_only",
+      "language": "javascript",
+      "content": "const express = require(\"express\");\nconst app = express();\n\napp.use(express.urlencoded({ extended: false }));\n\n// Serve static files from the public dir\napp.use(express.static(\"public\"));\n\n// Enable Pug\napp.set(\"views\", \"views\");\napp.set(\"view engine\", \"pug\");\n\nconst todoList = [\"Feed the dog\", \"Study for history exam\"];\n\n// Route for showing the list\napp.get(\"/\", function (req, res) {\n   res.render(\"index\", {\n      todoList: todoList\n   });\n});\n\n// Route for adding to the list\napp.post(\"/new\", function (req, res) {\n   todoList.push(req.body.item);\n   res.redirect(\"/\");\n});\n\n// Route for clearing the list\napp.get(\"/clear\", function (req, res) {\n   todoList.length = 0;\n   res.redirect(\"/\");\n});\n\n// Start the web server\napp.listen(8080, () => {\n   console.log(\"Server has started.\");\n});\n",
+      "includeInPrompt": true,
+      "requiredInSubmission": false,
+      "preserve": true
+    },
+    {
+      "path": "public/styles.css",
+      "role": "read_only",
+      "language": "css",
+      "content": "body {\n   font-family: Arial;\n}\n\nbutton {\n   margin-left: 10px;\n}\n",
+      "includeInPrompt": true,
+      "requiredInSubmission": false,
+      "preserve": true,
+      "notes": "The raw source later labels this block as style.css, but the assignment file list and server.js static setup establish the project file as public/styles.css while the rendered <link> href remains styles.css."
+    }
+  ],
+  "referenceSolution": {
+    "source": "zyBooks",
+    "files": [
+      {
+        "path": "views/index.pug",
+        "language": "pug",
+        "content": "doctype \nhtml(lang='en')\n   head\n   title To-Do List\n   link(rel='stylesheet' href='styles.css')\n   body\n      h1 To-Do List\n\n      form(method='post' action='/new')\n         input(type='text' name='item' autofocus='')\n         button Add\n\n      if todoList.length == 0\n         p Enter some tasks.\n      else\n         ul\n            each item in todoList\n               li= item\n         a(href='/clear') Clear\n"
+      }
+    ]
+  },
+  "submissionRules": {
+    "mode": "full_editable_file",
+    "editablePaths": [
+      "views/index.pug"
+    ],
+    "allowExtraFiles": false,
+    "allowMissingFiles": false,
+    "strictOutput": true,
+    "validation": [
+      "Require the complete views/index.pug file.",
+      "Reject markdown code fences.",
+      "Reject explanatory text outside the Pug file.",
+      "Reject missing required files.",
+      "Reject extra files.",
+      "Require the exact editable file path views/index.pug.",
+      "Do not modify read-only files.",
+      "Compile the submitted Pug before running tests."
+    ]
+  },
+  "runtime": {
+    "environment": "node",
+    "templateEngine": "pug",
+    "testRunner": "jest",
+    "domEnvironment": "jsdom",
+    "network": "disabled",
+    "processIsolation": "fresh_environment",
+    "testIsolation": "fresh_process",
+    "setupTimeoutMs": 10000,
+    "individualTestTimeoutMs": 5000,
+    "totalTimeoutMs": 30000
+  },
+  "promptPolicy": {
+    "showInstructions": true,
+    "showEditableFiles": true,
+    "showReadOnlyFiles": true,
+    "showTests": false,
+    "showPointValues": false,
+    "showEvaluatorType": false,
+    "hideFromModel": [
+      "Official test source",
+      "Test point values",
+      "Evaluator type",
+      "Internal runtime configuration",
+      "Reference solution content"
+    ]
+  },
+  "tests": [
+    {
+      "id": "unit-test-1",
+      "name": "Page structure and title",
+      "framework": "jest",
+      "path": "unit-test-1.test.js",
+      "source": "/**\n * @jest-environment jsdom\n */\n\nconst pug = require('pug');\nconst path = require('path');\nrequire('jest-expect-message');\n\n// Write feedback indicating the test passed all unit tests\nfunction pass(feedback = 'All tests pass') {\n  const fs = require('fs');\n  fs.writeFileSync('FEEDBACK', `✓ ${feedback}`);\n}\n\n// Write feedback indicating a failed comparison test\nfunction err(msg, expected, actual) {\n  // Put quotes around strings\n  if (typeof expected === 'string') {\n    expected = `\"${expected}\"`;\n    actual = `\"${actual}\"`;\n  }\n\n  return `${msg}\\n  Expected: ${expected}\\n  Found:    ${actual}`\n}\n\nfunction renderTemplate(templatePath, locals = {}) {\n  const compiledTemplate = pug.compileFile(path.join(__dirname, templatePath));\n  return compiledTemplate(locals);\n}\n\ntest('Test', async () => { \n  const todoList = [\"item1\", \"item2\"];\n\n  renderedHtml = renderTemplate('./views/index.pug', { todoList: todoList });\n\n  const page = document.createElement('html');\n  page.innerHTML = renderedHtml;\n\n  const title = page.querySelector('title');\n  expect(title, '<title> is missing in rendered HTML').not.toBe(null);\n\n  const expectedTitle = 'To-Do List';\n  expect(title.innerHTML,\n    err('<title> text in rendered HTML', expectedTitle, title.innerHTML))\n    .toBe(expectedTitle);\n\n  const link = page.querySelector('link');\n  expect(link, '<link> is missing in rendered HTML').not.toBe(null);\n\n  const expectedRel = 'stylesheet';\n  expect(link.rel,\n    err('<link> rel attribute in rendered HTML', expectedRel, link.rel))\n    .toBe(expectedRel);\n\n  const expectedLinkHref = 'styles.css';\n  const actualLinkHref = link.href.replace('http://localhost/', '');\n  expect(actualLinkHref,\n    err('<link> href attribute in rendered HTML', expectedLinkHref, actualLinkHref))\n    .toBe(expectedLinkHref);\n\n  const h1 = page.querySelector('h1');\n  expect(h1, '<h1> is missing in rendered HTML').not.toBe(null);\n\n  const expectedH1 = 'To-Do List';\n  expect(h1.innerHTML,\n    err('<h1> text in rendered HTML', expectedH1, h1.innerHTML))\n    .toBe(expectedH1);\n\n  pass();\n});\n",
+      "points": 2,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_process",
+      "async": false,
+      "mutatesGlobals": false
+    },
+    {
+      "id": "unit-test-2",
+      "name": "Displays to-do list items",
+      "framework": "jest",
+      "path": "unit-test-2.test.js",
+      "source": "/**\n * @jest-environment jsdom\n */\n\nconst pug = require('pug');\nconst path = require('path');\nrequire('jest-expect-message');\n\n// Write feedback indicating the test passed all unit tests\nfunction pass(feedback = 'All tests pass') {\n  const fs = require('fs');\n  fs.writeFileSync('FEEDBACK', `✓ ${feedback}`);\n}\n\n// Write feedback indicating a failed comparison test\nfunction err(msg, expected, actual) {\n  // Put quotes around strings\n  if (typeof expected === 'string') {\n    expected = `\"${expected}\"`;\n    actual = `\"${actual}\"`;\n  }\n\n  return `${msg}\\n  Expected: ${expected}\\n  Found:    ${actual}`\n}\n\nfunction renderTemplate(templatePath, locals = {}) {\n  const compiledTemplate = pug.compileFile(path.join(__dirname, templatePath));\n  return compiledTemplate(locals);\n}\n\ntest('Test', async () => { \n  const todoList = [\"item1\", \"item2\"];\n\n  renderedHtml = renderTemplate('./views/index.pug', { todoList: todoList });\n\n  const page = document.createElement('html');\n  page.innerHTML = renderedHtml;\n\n  const ulElems = page.querySelectorAll('ul');\n  expect(ulElems.length, \n    err('Number of <ul> elements in rendered HTML', 1, ulElems.length))\n    .toBe(1);\n\n  const liElems = ulElems[0].querySelectorAll('li');\n  expect(liElems.length, \n    err('Number of <li> elements in the <ul> element', todoList.length, liElems.length))\n    .toBe(todoList.length);\n\n  for (let i = 0; i < todoList.length; i++) {\n    expect(liElems[i].innerHTML,\n      err('<li> text in rendered HTML', todoList[i], liElems[i].innerHTML))\n      .toBe(todoList[i]);\n  }\n\n  pass();\n});\n",
+      "points": 3,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_process",
+      "async": false,
+      "mutatesGlobals": false
+    },
+    {
+      "id": "unit-test-3",
+      "name": "Add-task form",
+      "framework": "jest",
+      "path": "unit-test-3.test.js",
+      "source": "/**\n * @jest-environment jsdom\n */\n\nconst pug = require('pug');\nconst path = require('path');\nrequire('jest-expect-message');\n\n// Write feedback indicating the test passed all unit tests\nfunction pass(feedback = 'All tests pass') {\n  const fs = require('fs');\n  fs.writeFileSync('FEEDBACK', `✓ ${feedback}`);\n}\n\n// Write feedback indicating a failed comparison test\nfunction err(msg, expected, actual) {\n  // Put quotes around strings\n  if (typeof expected === 'string') {\n    expected = `\"${expected}\"`;\n    actual = `\"${actual}\"`;\n  }\n\n  return `${msg}\\n  Expected: ${expected}\\n  Found:    ${actual}`\n}\n\nfunction renderTemplate(templatePath, locals = {}) {\n  const compiledTemplate = pug.compileFile(path.join(__dirname, templatePath));\n  return compiledTemplate(locals);\n}\n\ntest('Test', async () => { \n  const todoList = [\"item1\", \"item2\"];\n  renderedHtml = renderTemplate('./views/index.pug', { todoList: todoList });\n\n  const page = document.createElement('html');\n  page.innerHTML = renderedHtml;\n\n  const formElems = page.querySelectorAll('form');\n  expect(formElems.length, \n    err('Number of <form> elements in rendered HTML', 1, formElems.length))\n    .toBe(1);\n\n  const actualMethod = formElems[0].method.toUpperCase();\n  expect(actualMethod,\n    err('<form> method attribute value', 'POST', actualMethod))\n    .toBe('POST');\n\n  const actualAction = formElems[0].action.replace('http://localhost', '');\n  expect(actualAction,\n    err('<form> action attribute value', '/new', actualAction))\n    .toBe('/new');\n\n  const inputTextElems = formElems[0].querySelectorAll('input');\n  expect(inputTextElems.length, \n    err('Number of <input> elements in the <form>', 1, inputTextElems.length))\n    .toBe(1);\n\n  const buttonElems = formElems[0].querySelectorAll('button');\n  expect(buttonElems.length, \n    err('Number of <button> elements in the <form>', 1, buttonElems.length))\n    .toBe(1);\n\n  expect(buttonElems[0].textContent, \n    err('<button> label', 'Add', buttonElems[0].textContent))\n    .toBe('Add'); \n\n  pass();\n});\n",
+      "points": 2,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_process",
+      "async": false,
+      "mutatesGlobals": false
+    },
+    {
+      "id": "unit-test-4",
+      "name": "Empty-list message",
+      "framework": "jest",
+      "path": "unit-test-4.test.js",
+      "source": "/**\n * @jest-environment jsdom\n */\n\nconst pug = require('pug');\nconst path = require('path');\nrequire('jest-expect-message');\n\n// Write feedback indicating the test passed all unit tests\nfunction pass(feedback = 'All tests pass') {\n  const fs = require('fs');\n  fs.writeFileSync('FEEDBACK', `✓ ${feedback}`);\n}\n\n// Write feedback indicating a failed comparison test\nfunction err(msg, expected, actual) {\n  // Put quotes around strings\n  if (typeof expected === 'string') {\n    expected = `\"${expected}\"`;\n    actual = `\"${actual}\"`;\n  }\n\n  return `${msg}\\n  Expected: ${expected}\\n  Found:    ${actual}`\n}\n\nfunction renderTemplate(templatePath, locals = {}) {\n  const compiledTemplate = pug.compileFile(path.join(__dirname, templatePath));\n  return compiledTemplate(locals);\n}\n\ntest('Test', async () => { \n  const todoList = [];\n\n  renderedHtml = renderTemplate('./views/index.pug', { todoList: todoList });\n\n  const page = document.createElement('html');\n  page.innerHTML = renderedHtml;\n\n  const ulElems = page.querySelectorAll('ul');\n  expect(ulElems.length, \n    err('Number of <ul> elements in rendered HTML', 0, ulElems.length))\n    .toBe(0);\n\n  const pElems = page.querySelectorAll('p');\n  expect(pElems.length, \n    err('Number of <p> elements in rendered HTML', 1, pElems.length))\n    .toBe(1);\n\n  const expectedPara = 'Enter some tasks.';\n  expect(pElems[0].innerHTML,\n    err('<p> text in rendered HTML', expectedPara, pElems[0].innerHTML))\n    .toBe(expectedPara);\n\n  pass();\n});\n",
+      "points": 2,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_process",
+      "async": false,
+      "mutatesGlobals": false
+    },
+    {
+      "id": "unit-test-5",
+      "name": "Clear-list link",
+      "framework": "jest",
+      "path": "unit-test-5.test.js",
+      "source": "/**\n * @jest-environment jsdom\n */\n\nconst pug = require('pug');\nconst path = require('path');\nrequire('jest-expect-message');\n\n// Write feedback indicating the test passed all unit tests\nfunction pass(feedback = 'All tests pass') {\n  const fs = require('fs');\n  fs.writeFileSync('FEEDBACK', `✓ ${feedback}`);\n}\n\n// Write feedback indicating a failed comparison test\nfunction err(msg, expected, actual) {\n  // Put quotes around strings\n  if (typeof expected === 'string') {\n    expected = `\"${expected}\"`;\n    actual = `\"${actual}\"`;\n  }\n\n  return `${msg}\\n  Expected: ${expected}\\n  Found:    ${actual}`\n}\n\nfunction renderTemplate(templatePath, locals = {}) {\n  const compiledTemplate = pug.compileFile(path.join(__dirname, templatePath));\n  return compiledTemplate(locals);\n}\n\ntest('Test', async () => { \n  // Ensure at least one item exists in the list in case the student decides not to\n  // render the Clear link when the list is empty\n  const todoList = ['item1'];\n  renderedHtml = renderTemplate('./views/index.pug', { todoList: todoList });\n\n  const page = document.createElement('html');\n  page.innerHTML = renderedHtml;\n\n  const aElems = page.querySelectorAll('a');\n  expect(aElems.length, \n    err('Number of <a> elements in rendered HTML', 1, aElems.length))\n    .toBe(1);\n\n  const actualHref = aElems[0].href.replace('http://localhost', '');\n  const expectedHref = '/clear';\n  expect(actualHref,\n    err('<a> href attribute in rendered HTML', expectedHref, actualHref))\n    .toBe(expectedHref);\n\n  expect(aElems[0].textContent,\n    err('<a> link text', 'Clear', aElems[0].textContent))\n    .toBe('Clear');\n\n  pass();\n});\n",
+      "points": 1,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_process",
+      "async": false,
+      "mutatesGlobals": false
+    }
+  ],
+  "scoring": {
+    "mode": "test_all_or_nothing",
+    "maximumPoints": 10,
+    "activationStatus": "ready"
+  },
+  "metadata": {
+    "sourceFile": "problem5.txt",
+    "omittedSuppliedFiles": [
+      "package.json",
+      "package-lock.json"
+    ],
+    "omissionReason": "These files were present in the raw assignment text but are not required by the current node_jest_pug_jsdom evaluator or by the student-facing prompt for completing views/index.pug.",
+    "sourceCorrections": [
+      "The raw source later labels the stylesheet block as style.css, but the assignment file list and server.js static configuration establish the correct project file path as public/styles.css."
+    ]
+  }
+}

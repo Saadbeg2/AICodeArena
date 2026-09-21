@@ -1,0 +1,6 @@
+fastapi==0.115.12
+sqlalchemy==2.0.41
+uvicorn[standard]==0.34.3
+playwright==1.54.0
+google-genai>=1.0.0
+requests>=2.31.0

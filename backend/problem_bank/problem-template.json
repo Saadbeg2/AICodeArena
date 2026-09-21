@@ -1,0 +1,153 @@
+{
+  "_comment": "AICodeArena universal problem template. Replace placeholder values before activating a new problem. This template uses a browser HTML assignment because it is the simplest current starting point.",
+  "schemaVersion": "1.0",
+  "id": "replace-this-problem-id",
+  "_comment_id": "Use lowercase letters, numbers, underscores, and hyphens only. Example: contact-form-layout",
+  "title": "Replace This Problem Title",
+  "description": "Replace this with a short assignment summary.",
+  "course": "COSC 4398",
+  "sourcePlatform": "custom",
+  "_comment_sourcePlatform": "Examples in the current repo use values such as custom and zyBooks.",
+  "assignmentType": "html-form",
+  "_comment_assignmentType": "Free-form metadata label. Choose something descriptive such as html-form, dom-manipulation, css-layout, or node-pug-template.",
+  "evaluatorType": "browser_qunit_html",
+  "_comment_evaluatorType": "For new authors, choose one of the current active evaluator types: browser_qunit_html, browser_qunit_css, browser_qunit_mocked_api, browser_qunit_javascript, or node_jest_pug_jsdom.",
+  "language": "html",
+  "technologies": [
+    "HTML5",
+    "DOM",
+    "QUnit"
+  ],
+  "instructions": {
+    "_comment": "studentPrompt is what the model sees. Do not place hidden tests, point values, or reference solution content here.",
+    "studentPrompt": "Replace this with the exact student-facing assignment instructions. End with a clear output contract such as: Return the complete index.html file."
+  },
+  "files": [
+    {
+      "_comment": "Editable file: the model is allowed to return this file and it should usually be required in the submission.",
+      "path": "index.html",
+      "role": "editable",
+      "language": "html",
+      "content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <title>Replace This Title</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <!-- TODO: Replace with starter content for the assignment -->\n</body>\n</html>\n",
+      "includeInPrompt": true,
+      "requiredInSubmission": true,
+      "preserve": false
+    },
+    {
+      "_comment": "Read-only file: preserved in the evaluator workspace and shown to the model only when includeInPrompt is true and promptPolicy.showReadOnlyFiles is true.",
+      "path": "styles.css",
+      "role": "read_only",
+      "language": "css",
+      "content": "body {\n  font-family: Arial, sans-serif;\n}\n",
+      "includeInPrompt": false,
+      "requiredInSubmission": false,
+      "preserve": true,
+      "notes": "Optional notes field. Use this for author-facing clarification only."
+    }
+  ],
+  "referenceSolution": {
+    "_comment": "Optional but strongly recommended. Each reference solution file path must match an editable file path exactly.",
+    "source": "custom",
+    "files": [
+      {
+        "path": "index.html",
+        "language": "html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <title>Replace This Title</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <h1>Example Reference Solution</h1>\n</body>\n</html>\n"
+      }
+    ]
+  },
+  "submissionRules": {
+    "_comment": "The current active system expects complete-file submissions. editablePaths must match every editable file path exactly.",
+    "mode": "full_editable_file",
+    "editablePaths": [
+      "index.html"
+    ],
+    "allowExtraFiles": false,
+    "allowMissingFiles": false,
+    "strictOutput": true,
+    "validation": [
+      "Require the complete index.html file.",
+      "Reject markdown code fences.",
+      "Reject explanatory text outside the HTML.",
+      "Reject missing required files.",
+      "Reject extra files.",
+      "Require exact filenames.",
+      "Prevent modification of read-only files.",
+      "Perform an HTML syntax check where practical."
+    ],
+    "notes": "Keep output strict. Invalid formatting should fail validation rather than being auto-cleaned."
+  },
+  "runtime": {
+    "_comment": "Runtime values describe how the evaluator should execute the assignment.",
+    "environment": "browser",
+    "entryFile": "index.html",
+    "browserEngine": "Chromium",
+    "headless": true,
+    "network": "disabled",
+    "processIsolation": "fresh_environment",
+    "testIsolation": "fresh_page",
+    "waitFor": "load",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "setupTimeoutMs": 10000,
+    "individualTestTimeoutMs": 5000,
+    "totalTimeoutMs": 30000
+  },
+  "promptPolicy": {
+    "_comment": "The loader currently requires showTests=false, showPointValues=false, and showEvaluatorType=false.",
+    "showInstructions": true,
+    "showEditableFiles": true,
+    "showReadOnlyFiles": false,
+    "showTests": false,
+    "showPointValues": false,
+    "showEvaluatorType": false,
+    "showImages": false,
+    "hideFromModel": [
+      "Official test source",
+      "Test point values",
+      "Evaluator type",
+      "Internal runtime configuration",
+      "Reference solution content"
+    ]
+  },
+  "tests": [
+    {
+      "_comment": "Each hidden test needs a meaningful name because it becomes the frontend label shown in per-test results.",
+      "id": "page-title",
+      "name": "Page title",
+      "framework": "qunit",
+      "path": "tests/page-title.js",
+      "source": "QUnit.test('Page title', function(assert) {\n  const title = document.querySelector('title');\n  assert.ok(title !== null, '<title> element exists');\n  assert.equal(title.textContent.trim(), 'Replace This Title', 'Page title text matches');\n});\n",
+      "points": 10,
+      "visibility": "hidden",
+      "timeoutMs": 5000,
+      "isolation": "fresh_page",
+      "async": false,
+      "mutatesGlobals": false
+    }
+  ],
+  "scoring": {
+    "_comment": "maximumPoints must equal the exact sum of tests[].points.",
+    "mode": "test_all_or_nothing",
+    "requireExplicitPoints": true,
+    "maximumPoints": 10,
+    "activationStatus": "incomplete"
+  },
+  "metadata": {
+    "_comment": "Author-facing metadata. Replace these values with real tags, difficulty, and notes.",
+    "difficulty": "easy",
+    "tags": [
+      "html",
+      "qunit",
+      "replace-me"
+    ],
+    "knownIssues": [
+      "Replace this placeholder list with any evaluator-specific caveats for the problem."
+    ],
+    "notes": [
+      "Replace placeholder metadata before marking the problem ready."
+    ]
+  }
+}

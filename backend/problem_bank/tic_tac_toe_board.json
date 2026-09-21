@@ -1,0 +1,212 @@
+{
+  "schemaVersion": "1.0",
+  "id": "tic-tac-toe-board",
+  "title": "Tic-Tac-Toe Board Layout",
+  "description": "Modify styles.css so the webpage displays a centered 3-by-3 tic-tac-toe board using CSS Grid.",
+  "course": "COSC 4398",
+  "sourcePlatform": "zyBooks",
+
+  "assignmentType": "css-layout",
+  "evaluatorType": "browser_qunit_css",
+  "language": "css",
+
+  "technologies": [
+    "CSS",
+    "CSS Grid",
+    "HTML",
+    "DOM",
+    "QUnit"
+  ],
+
+  "instructions": {
+    "studentPrompt": "Modify styles.css so the webpage displays a centered tic-tac-toe board.\n\nThe finished page should show a 3-by-3 board beneath the Tic-Tac-Toe heading. The board contains nine square cells arranged in three columns and three rows. Each cell is 100px wide and 100px tall. There is a 10px gap between neighboring cells. The board is centered horizontally on the page. The existing light-blue cell borders, red X marks, and blue O marks should remain unchanged.\n\nAdd the following declarations to the #board selector in styles.css:\n\n- display: grid\n- grid-template-columns with three columns that are each 100px wide\n- grid-template-rows with three rows that are each 100px tall\n- grid-gap: 10px\n- justify-content: center\n\nReturn the complete styles.css file."
+  },
+
+  "files": [
+    {
+      "path": "index.html",
+      "role": "read_only",
+      "language": "html",
+      "includeInPrompt": true,
+      "requiredInSubmission": false,
+      "preserve": true,
+      "content": "<!DOCTYPE HTML>\n<html>\n   <head>\n      <title>Tic-Tac-Toe</title> \n      <link rel=\"stylesheet\" href=\"styles.css\">\n   </head>\n   <body>\n      <h1>Tic-Tac-Toe</h1>\n        \n      <div id=\"board\">\n         <div class=\"x\">X</div>\n         <div class=\"o\">O</div>\n         <div></div>\n         <div></div>\n         <div class=\"x\">X</div>\n         <div></div>\n         <div class=\"o\">O</div>\n         <div></div>\n         <div class=\"x\">X</div>\n      </div>\n   </body>\n</html>\n"
+    },
+    {
+      "path": "styles.css",
+      "role": "editable",
+      "language": "css",
+      "includeInPrompt": true,
+      "requiredInSubmission": true,
+      "preserve": false,
+      "content": "body {\n   font-family: Roboto, Helvetica, sans-serif;\n   text-align: center;\n}\n\n#board {\n   font: 85px arial, sans-serif;\n   margin: 3px;\n   \n   /* TODO: Add your solution here */      \n\n}\n\n#board > div {\n   border: 1px solid LightSkyBlue;\n   text-align: center;\n}\n\n.x {\n   color: red;\n}\n\n.o {\n   color: blue;\n}\n"
+    }
+  ],
+
+  "referenceSolution": {
+    "source": "zyBooks",
+    "files": [
+      {
+        "path": "styles.css",
+        "language": "css",
+        "content": "body {\n   font-family: Roboto, Helvetica, sans-serif;\n   text-align: center;\n}\n\n#board {\n   font: 85px arial, sans-serif;\n   margin: 3px;\n   \n   /* Your solution goes here */      \n   display: grid;\n   grid-template-columns: 100px 100px 100px;\n   grid-template-rows: 100px 100px 100px;\n   grid-gap: 10px;\n   justify-content: center;\n}\n\n#board > div {\n   border: 1px solid LightSkyBlue;\n   text-align: center;\n}\n\n.x {\n   color: red;\n}\n\n.o {\n   color: blue;\n}\n"
+      }
+    ]
+  },
+
+
+  "submissionRules": {
+    "mode": "full_editable_file",
+    "editablePaths": [
+      "styles.css"
+    ],
+    "allowExtraFiles": false,
+    "allowMissingFiles": false,
+    "strictOutput": true,
+
+    "validation": [
+      "Require the complete styles.css file.",
+      "Reject markdown code fences.",
+      "Reject explanatory text outside the CSS.",
+      "Reject missing required files.",
+      "Reject extra files.",
+      "Require the exact filename styles.css.",
+      "Prevent modification of index.html.",
+      "Perform CSS syntax validation before running tests."
+    ],
+
+    "notes": "Do not automatically clean or repair malformed model output. Invalid formatting should result in FORMAT_ERROR."
+  },
+
+  "runtime": {
+    "environment": "browser",
+    "entryFile": "index.html",
+    "browserEngine": "Chromium",
+    "headless": true,
+    "network": "disabled",
+    "processIsolation": "fresh_environment",
+    "testIsolation": "fresh_page",
+    "waitFor": "load",
+
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+
+    "setupTimeoutMs": 10000,
+    "individualTestTimeoutMs": 5000,
+    "totalTimeoutMs": 30000
+  },
+
+  "promptPolicy": {
+    "showInstructions": true,
+    "showEditableFiles": true,
+    "showReadOnlyFiles": true,
+    "showTests": false,
+    "showPointValues": false,
+    "showEvaluatorType": false,
+    "showImages": false,
+
+    "hideFromModel": [
+      "Official test source",
+      "Test point values",
+      "Evaluator type",
+      "Internal runtime configuration",
+      "Test implementation details"
+    ]
+  },
+
+"tests": [
+  {
+    "id": "board-display-grid",
+    "name": "Test display property",
+    "framework": "qunit",
+    "path": "tests/test-1-display-property.js",
+    "source": "// Set unit test configuration by changing the value in comment:\n// \n// SOURCE_FILE = index.html\n// BROWSER_HEADLESS = true\n\nQUnit.test('Test display property', function(assert) {\n   \n   // Find CSS rule\n   let searchRule = null;\n   for (let rule of document.styleSheets[0].cssRules) {\n      if (rule.selectorText === '#board') {\n         if (searchRule === null) {\n            searchRule = rule;\n         }\n         else {\n            assert.ok(searchRule === null, 'Only one #board selector exists');\n         }\n      }\n   }\n   \n   assert.ok(searchRule !== null, '#board selector exists');\n   \n   const expectedStyles = {\n      'display': 'grid'\n   };\n   \n   let ruleStyles = searchRule.style;   \n   for (let expectedStyle in expectedStyles) {\n      assert.equal(\n         ruleStyles.getPropertyValue(expectedStyle),\n         expectedStyles[expectedStyle],\n         `${expectedStyle} property of rule`\n      );\n   }\n});",
+    "points": 2,
+    "visibility": "hidden",
+    "timeoutMs": 5000,
+    "isolation": "fresh_page",
+    "async": false,
+    "mutatesGlobals": false
+  },
+  {
+    "id": "board-grid-columns",
+    "name": "Test grid-template-columns property",
+    "framework": "qunit",
+    "path": "tests/test-2-grid-template-columns.js",
+    "source": "// Set unit test configuration by changing the value in comment:\n// \n// SOURCE_FILE = index.html\n// BROWSER_HEADLESS = true\n\nQUnit.test('Test grid-template-columns property', function(assert) {\n   \n   // Find CSS rule\n   let searchRule = null;\n   for (let rule of document.styleSheets[0].cssRules) {\n      if (rule.selectorText === '#board') {\n         if (searchRule === null) {\n            searchRule = rule;\n         }\n         else {\n            assert.ok(searchRule === null, 'Only one #board selector exists');\n         }\n      }\n   }\n   \n   assert.ok(searchRule !== null, '#board selector exists');   \n   \n   const expectedStyles = {\n      'grid-template-columns': '100px 100px 100px'\n   };\n   \n   let ruleStyles = searchRule.style;   \n   for (let expectedStyle in expectedStyles) {\n      assert.equal(\n         ruleStyles.getPropertyValue(expectedStyle),\n         expectedStyles[expectedStyle],\n         `${expectedStyle} property of rule`\n      );\n   }\n   \n});",
+    "points": 2,
+    "visibility": "hidden",
+    "timeoutMs": 5000,
+    "isolation": "fresh_page",
+    "async": false,
+    "mutatesGlobals": false
+  },
+  {
+    "id": "board-grid-rows",
+    "name": "Test grid-template-rows property",
+    "framework": "qunit",
+    "path": "tests/test-3-grid-template-rows.js",
+    "source": "// Set unit test configuration by changing the value in comment:\n// \n// SOURCE_FILE = index.html\n// BROWSER_HEADLESS = true\n\nQUnit.test('Test grid-template-rows property', function(assert) {\n   \n   // Find CSS rule\n   let searchRule = null;\n   for (let rule of document.styleSheets[0].cssRules) {\n      if (rule.selectorText === '#board') {\n         if (searchRule === null) {\n            searchRule = rule;\n         }\n         else {\n            assert.ok(searchRule === null, 'Only one #board selector exists');\n         }\n      }\n   }\n   \n   assert.ok(searchRule !== null, '#board selector exists');   \n   \n   const expectedStyles = {\n      'grid-template-rows': '100px 100px 100px'\n   };\n   \n   let ruleStyles = searchRule.style;   \n   for (let expectedStyle in expectedStyles) {\n      assert.equal(\n         ruleStyles.getPropertyValue(expectedStyle),\n         expectedStyles[expectedStyle],\n         `${expectedStyle} property of rule`\n      );\n   }\n   \n});",
+    "points": 2,
+    "visibility": "hidden",
+    "timeoutMs": 5000,
+    "isolation": "fresh_page",
+    "async": false,
+    "mutatesGlobals": false
+  },
+  {
+    "id": "board-grid-gap",
+    "name": "Test grid-gap property",
+    "framework": "qunit",
+    "path": "tests/test-4-grid-gap.js",
+    "source": "// Set unit test configuration by changing the value in comment:\n// \n// SOURCE_FILE = index.html\n// BROWSER_HEADLESS = true\n\nQUnit.test('Test grid-gap (column-gap and row-gap) property', function(assert) {\n\n   // Find CSS rule\n   let searchRule = null;\n   for (let rule of document.styleSheets[0].cssRules) {\n      if (rule.selectorText === '#board') {\n         if (searchRule === null) {\n            searchRule = rule;\n         }\n         else {\n            assert.ok(searchRule === null, 'Only one #board selector exists');\n         }\n      }\n   }\n   \n   assert.ok(searchRule !== null, '#board selector exists');   \n   \n   // On Chrome, grid-gap is converted into column-gap and row-gap properties\n   const expectedStyles = {\n      'column-gap': '10px',\n      'row-gap': '10px'\n   };\n   \n   let ruleStyles = searchRule.style;   \n   for (let expectedStyle in expectedStyles) {\n      assert.equal(\n         ruleStyles.getPropertyValue(expectedStyle),\n         expectedStyles[expectedStyle],\n         `${expectedStyle} property of rule`\n      );\n   }\n});",
+    "points": 2,
+    "visibility": "hidden",
+    "timeoutMs": 5000,
+    "isolation": "fresh_page",
+    "async": false,
+    "mutatesGlobals": false
+  },
+  {
+    "id": "board-horizontal-centering",
+    "name": "Test justify-content property",
+    "framework": "qunit",
+    "path": "tests/test-5-justify-content.js",
+    "source": "// Set unit test configuration by changing the value in comment:\n// \n// SOURCE_FILE = index.html\n// BROWSER_HEADLESS = true\n\nQUnit.test('Test justify-content property', function(assert) {\n   // Find CSS rule\n   let searchRule = null;\n   for (let rule of document.styleSheets[0].cssRules) {\n      if (rule.selectorText === '#board') {\n         if (searchRule === null) {\n            searchRule = rule;\n         }\n         else {\n            assert.ok(searchRule === null, 'Only one #board selector exists');\n         }\n      }\n   }\n   \n   assert.ok(searchRule !== null, '#board selector exists');   \n   \n   const expectedStyles = {\n      'justify-content': 'center'\n   };\n   \n   let ruleStyles = searchRule.style;   \n   for (let expectedStyle in expectedStyles) {\n      assert.equal(\n         ruleStyles.getPropertyValue(expectedStyle),\n         expectedStyles[expectedStyle],\n         `${expectedStyle} property of rule`\n      );\n   }\n});",
+    "points": 2,
+    "visibility": "hidden",
+    "timeoutMs": 5000,
+    "isolation": "fresh_page",
+    "async": false,
+    "mutatesGlobals": false
+  }
+],
+
+"scoring": {
+  "mode": "test_all_or_nothing",
+  "requireExplicitPoints": true,
+  "maximumPoints": 10,
+  "activationStatus": "ready"
+},
+
+"metadata": {
+  "difficulty": "easy",
+  "tags": [
+    "css",
+    "css-grid",
+    "layout",
+    "qunit",
+    "tic-tac-toe"
+  ],
+  "knownIssues": [
+    "The official tests inspect the literal #board CSS rule rather than only the final computed page layout.",
+    "Only one #board selector may exist.",
+    "grid-template-columns must serialize exactly as 100px 100px 100px.",
+    "grid-template-rows must serialize exactly as 100px 100px 100px.",
+    "Chrome converts grid-gap into column-gap and row-gap during CSS rule parsing.",
+    "No image is sent to the AI; the reference appearance is described in the public instructions."
+  ]
+}
+}
