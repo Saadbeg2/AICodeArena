@@ -6,10 +6,17 @@ AICodeArena is a full-stack platform for fairly evaluating and comparing AI-gene
 
 ![Python](https://img.shields.io/badge/Python-3.11+-blue) ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-green) ![React](https://img.shields.io/badge/React-18-61dafb) ![SQLite](https://img.shields.io/badge/SQLite-gray) ![Playwright](https://img.shields.io/badge/Playwright-Chromium-45ba4b)
 
-> **Screenshots:** _add dashboard / leaderboard screenshots here — `docs/screenshots/`_
+## Screenshots
+
+| Competition dashboard | Run results & leaderboard |
+|---|---|
+| ![Competition dashboard](docs/screenshots/dashboard-overview.png) | ![Run results](docs/screenshots/dashboard-results.png) |
+
+| Per-model test breakdown | Generated prompt (hidden tests excluded) |
+|---|---|
+| ![Test breakdown](docs/screenshots/dashboard-test-breakdown.png) | ![Prompt view](docs/screenshots/dashboard-prompt.png) |
 
 ---
-
 ## What it does
 
 Most "which AI writes better code" debates are anecdotal. AICodeArena makes the comparison reproducible:
@@ -111,7 +118,7 @@ cd frontend && npm test -- --run
 
 ## Credits
 
-Built in August 2026 by **Saad Beg** with a University of Houston professor.
+Built in August 2026 by **Saad Beg** in collaboration with **Professor Hilford** (University of Houston).
 
 ## License
 
